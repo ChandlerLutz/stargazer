@@ -1,0 +1,45 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# stargazer
+
+A Clone of
+[stargazer 5.2.2](https://cran.r-project.org/web/packages/stargazer/index.html) that
+properly prints the dependent variable from a list of  `felm`
+models. Installing stargazer from this repo yields the output from a list of `felm` models:
+
+```{r }
+library(lfe); library(stargazer)
+data(mtcars)
+mtcars$cyl <- as.factor(mtcars$cyl)
+
+## -- Current Implementation -- ##
+f <- list(
+  mpg ~ wt | 0 | 0 | 0,
+  mpg ~ wt + hp | 0 | 0 | 0,
+  disp ~ wt + hp | 0 | 0 | 0
+)
+mods <- lapply(f, felm, data = mtcars)
+stargazer(mods, type = "text")
+```
+
+
+## Installation
+
+You can install stargazer from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("ChandlerLutz/stargazer")
+```
